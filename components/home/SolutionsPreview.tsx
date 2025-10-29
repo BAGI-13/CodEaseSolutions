@@ -1,7 +1,7 @@
 // File: components/home/SolutionsPreview.tsx
 import { ServiceSection } from '@/components/ServiceSection';
 import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+
 
 export default function SolutionsPreview() {
   return (
@@ -86,16 +86,7 @@ export default function SolutionsPreview() {
           />
         </div>
 
-        {/* "View All Solutions" button (Waisa hi hai) */}
-        <div className="text-center mt-16">
-            <Link
-                href="/solutions"
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold shadow-lg hover:bg-blue-700 transition-all duration-300 ease-in-out hover:scale-105 cursor-pointer text-lg inline-flex items-center gap-2"
-            >
-                View All Solutions
-                <ArrowRight size={20} />
-            </Link>
-        </div>
+        
 
       </div>
     </section>

@@ -3,7 +3,8 @@
 
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-// --- UPAR KA SARA CODE (mulberry32, RollingChar, RollingLine) SAME RAKHEIN ---
+// --- UPAR KA SARA CODE (mulberry32, RollingChar) SAME RAKHEIN ---
+/* ... (mulberry32, hashStr, getFixedReelForChar, RollingChar definitions remain unchanged) ... */
 /* -------------------------------------------
   Utils: deterministic RNG (seeded by key)
   ------------------------------------------- */
@@ -149,6 +150,7 @@ const RollingChar: React.FC<{
   );
 };
 
+
 /* -------------------------------------------
   RollingLine: per-line font-size lock (px)
   ------------------------------------------- */
@@ -169,7 +171,8 @@ const RollingLine: React.FC<{
   return (
     <span
       ref={ref}
-      className={`flex flex-row flex-wrap ${className || ''}`}
+      // --- UPDATE: justify-center add kiya ---
+      className={`flex flex-row flex-wrap justify-center ${className || ''}`}
       aria-label={text}
       style={{
         fontSize: fontSizePx ?? undefined,
@@ -187,7 +190,7 @@ const RollingLine: React.FC<{
   );
 };
 
-// --- Props define karna (yeh missing tha) ---
+// --- Props define karna ---
 interface AlphabetMeterProps {
   line1: string;
   line2: string;
@@ -195,20 +198,21 @@ interface AlphabetMeterProps {
 
 const AlphabetMeter: React.FC<AlphabetMeterProps> = ({ line1, line2 }) => {
   return (
-    <>
+    // Wrapper div (waisa hi hai)
+    <div className="flex flex-col items-center">
       <h2
-        // --- UPDATE YAHAN HAI: Responsive Font Size ---
-        className="flex flex-col items-center text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 mb-4 min-h-[1.2em]"
+        // Styling classes (waisi hi hain)
+        className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 mb-2 md:mb-4 min-h-[1.2em]"
       >
         <RollingLine text={line1} />
       </h2>
       <h3
-        // --- UPDATE YAHAN HAI: Responsive Font Size ---
-        className="flex flex-col items-center text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-blue-600 min-h-[1.2em]"
+        // Styling classes (waisi hi hain)
+        className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-blue-600 min-h-[1.2em]"
       >
         <RollingLine text={line2} />
       </h3>
-    </>
+    </div>
   );
 };
 

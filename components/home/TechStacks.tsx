@@ -1,179 +1,241 @@
 // File: components/home/TechStacks.tsx
 'use client'; // Animation ke liye
 
-import {
-    Database, Code, Palette, Settings, Cloud, Wind,
-    Figma as FigmaIcon, Slack as SlackIcon, Box, Monitor, Bot, DatabaseZap, Type, Component, Layers
-} from 'lucide-react';
 import React from 'react';
+import {
+  Database,
+  Code,
+  Palette,
+  Settings,
+  Cloud,
+  Wind,
+  Figma as FigmaIcon,
+  Slack as SlackIcon,
+  Box,
+  Monitor,
+  Bot,
+  DatabaseZap,
+  Type,
+  Component,
+  Layers,
+} from 'lucide-react';
 
-// --- Data Structure Update ---
+// --- Types ---
 interface TechItem {
-    name: string;
-    icon?: React.ComponentType<{ className?: string }>;
-    hoverClass?: string; // Example: "hover:bg-blue-600 hover:text-white"
+  name: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  iconHoverColorClass?: string;
+  textHoverColorClass?: string;
+  url?: string; // click par open karne ke liye
 }
 
-// (Hinglish) Data mein hoverClass ko dobara check kiya brand colors ke liye
+// --- Data ---
 const techStacksData: { category: string; items: TechItem[] }[] = [
-    {
-        category: "For Zoho", items: [
-             { name: "Zoho CRM", icon: Settings, hoverClass: "hover:bg-red-500 hover:text-white" },
-             { name: "Zoho Books", icon: Settings, hoverClass: "hover:bg-green-500 hover:text-white" },
-             { name: "Zoho Creator", icon: Settings, hoverClass: "hover:bg-blue-500 hover:text-white" },
-             { name: "Zoho Analytics", icon: Settings, hoverClass: "hover:bg-yellow-600 hover:text-white" },
-             { name: "Zoho People", icon: Settings, hoverClass: "hover:bg-purple-500 hover:text-white" },
-             { name: "Zoho Forms", icon: Settings, hoverClass: "hover:bg-indigo-500 hover:text-white" },
-             { name: "Zoho Sign", icon: Settings, hoverClass: "hover:bg-pink-500 hover:text-white" },
-             { name: "Zoho Inventory", icon: Box, hoverClass: "hover:bg-teal-500 hover:text-white" },
-             { name: "Zoho Desk", icon: Settings, hoverClass: "hover:bg-cyan-500 hover:text-white" },
-             { name: "Deluge Scripting", icon: Code, hoverClass: "hover:bg-gray-700 hover:text-white" },
-             { name: "API & Integrations", icon: Settings, hoverClass: "hover:bg-orange-500 hover:text-white" },
-             { name: "Automation & Workflows", icon: Settings, hoverClass: "hover:bg-lime-500 hover:text-white" }
-        ]
-    },
-    {
-        category: "For Website", items: [
-             { name: "Next.js", icon: Code, hoverClass: "hover:bg-black hover:text-white" },
-             { name: "React.js", icon: Code, hoverClass: "hover:bg-sky-500 hover:text-white" },
-             { name: "Lovable AI", icon: Bot, hoverClass: "hover:bg-pink-400 hover:text-white" },
-             { name: "TypeScript", icon: Type, hoverClass: "hover:bg-blue-700 hover:text-white" },
-             { name: "JavaScript (ES6+)", icon: Code, hoverClass: "hover:bg-yellow-400 hover:text-black" },
-             { name: "Tailwind CSS", icon: Wind, hoverClass: "hover:bg-sky-500 hover:text-white" },
-             { name: "Ant Design", icon: Component, hoverClass: "hover:bg-blue-500 hover:text-white" },
-             { name: "Node.js", icon: Code, hoverClass: "hover:bg-green-600 hover:text-white" },
-             { name: "Express.js", icon: Code, hoverClass: "hover:bg-gray-500 hover:text-white" },
-             { name: "REST APIs", icon: Settings, hoverClass: "hover:bg-orange-600 hover:text-white" },
-             { name: "Zoho API Integration", icon: Settings, hoverClass: "hover:bg-red-600 hover:text-white" },
-             { name: "JSON / XML", icon: Code, hoverClass: "hover:bg-gray-400 hover:text-black" }
-        ]
-    },
-    {
-        category: "Database & Cloud", items: [
-             { name: "MySQL", icon: Database, hoverClass: "hover:bg-blue-800 hover:text-white" },
-             { name: "MongoDB", icon: DatabaseZap, hoverClass: "hover:bg-green-700 hover:text-white" },
-             { name: "Supabase", icon: Cloud, hoverClass: "hover:bg-green-500 hover:text-white" },
-             { name: "Firebase", icon: Cloud, hoverClass: "hover:bg-yellow-500 hover:text-white" },
-             { name: "PostgreSQL", icon: Database, hoverClass: "hover:bg-blue-600 hover:text-white" },
-             { name: "Digital Ocean", icon: Cloud, hoverClass: "hover:bg-blue-500 hover:text-white" },
-             { name: "Vercel", icon: Cloud, hoverClass: "hover:bg-black hover:text-white" },
-             { name: "Netlify", icon: Cloud, hoverClass: "hover:bg-teal-500 hover:text-white" },
-             { name: "Zoho Catalyst", icon: Cloud, hoverClass: "hover:bg-purple-600 hover:text-white" },
-             { name: "Docker (Basic)", icon: Box, hoverClass: "hover:bg-blue-400 hover:text-white" }
-        ]
-    },
-    {
-        category: "Video & Tools", items: [
-             { name: "Canva Pro", icon: Palette, hoverClass: "hover:bg-purple-400 hover:text-white" },
-             { name: "CapCut Pro", icon: Palette, hoverClass: "hover:bg-blue-400 hover:text-white" },
-             { name: "Adobe Pro", icon: Palette, hoverClass: "hover:bg-red-600 hover:text-white" },
-             { name: "Figma", icon: FigmaIcon, hoverClass: "hover:bg-purple-500 hover:text-white" },
-             { name: "Filmora", icon: Palette, hoverClass: "hover:bg-teal-500 hover:text-white" },
-             { name: "Photoshop", icon: Palette, hoverClass: "hover:bg-blue-900 hover:text-white" },
-             { name: "Slack", icon: SlackIcon, hoverClass: "hover:bg-purple-700 hover:text-white" },
-             { name: "Zoho Cliq", icon: Settings, hoverClass: "hover:bg-green-500 hover:text-white" },
-             { name: "Google Workspace", icon: Cloud, hoverClass: "hover:bg-blue-500 hover:text-white" },
-             { name: "Zoho Projects", icon: Layers, hoverClass: "hover:bg-orange-500 hover:text-white" },
-             { name: "VS Code", icon: Monitor, hoverClass: "hover:bg-blue-600 hover:text-white" },
-             { name: "Postman", icon: Settings, hoverClass: "hover:bg-orange-500 hover:text-white" },
-             { name: "Eclipse", icon: Code, hoverClass: "hover:bg-purple-800 hover:text-white" }
-        ]
-    }
+  {
+    category: 'For Zoho',
+    items: [
+      { name: 'Zoho CRM', url: 'https://www.zoho.com/crm/', icon: Settings, iconHoverColorClass: 'group-hover:text-red-500', textHoverColorClass: 'group-hover:text-red-700' },
+      { name: 'Zoho Books', url: 'https://www.zoho.com/books/', icon: Settings, iconHoverColorClass: 'group-hover:text-green-500', textHoverColorClass: 'group-hover:text-green-700' },
+      { name: 'Zoho Creator', url: 'https://www.zoho.com/en-in/creator/', icon: Settings, iconHoverColorClass: 'group-hover:text-blue-500', textHoverColorClass: 'group-hover:text-blue-700' },
+      { name: 'Zoho Analytics', url: 'https://www.zoho.com/analytics/', icon: Settings, iconHoverColorClass: 'group-hover:text-yellow-600', textHoverColorClass: 'group-hover:text-yellow-800' },
+      { name: 'Zoho People', url: 'https://www.zoho.com/people/', icon: Settings, iconHoverColorClass: 'group-hover:text-purple-500', textHoverColorClass: 'group-hover:text-purple-700' },
+      { name: 'Zoho Forms', url: 'https://www.zoho.com/forms/', icon: Settings, iconHoverColorClass: 'group-hover:text-indigo-500', textHoverColorClass: 'group-hover:text-indigo-700' },
+      { name: 'Zoho Sign', url: 'https://www.zoho.com/sign/', icon: Settings, iconHoverColorClass: 'group-hover:text-pink-500', textHoverColorClass: 'group-hover:text-pink-700' },
+      { name: 'Zoho Inventory', url: 'https://www.zoho.com/inventory/', icon: Box, iconHoverColorClass: 'group-hover:text-teal-500', textHoverColorClass: 'group-hover:text-teal-700' },
+      { name: 'Zoho Desk', url: 'https://www.zoho.com/desk/', icon: Settings, iconHoverColorClass: 'group-hover:text-cyan-500', textHoverColorClass: 'group-hover:text-cyan-700' },
+      { name: 'Deluge Scripting', url: 'https://www.zoho.com/deluge/', icon: Code, iconHoverColorClass: 'group-hover:text-gray-700', textHoverColorClass: 'group-hover:text-gray-900' },
+      { name: 'API & Integrations', url: 'https://www.zoho.com/platform/', icon: Settings, iconHoverColorClass: 'group-hover:text-orange-500', textHoverColorClass: 'group-hover:text-orange-700' },
+      { name: 'Automation & Workflows', url: 'https://www.zoho.com/flow/', icon: Settings, iconHoverColorClass: 'group-hover:text-lime-500', textHoverColorClass: 'group-hover:text-lime-700' },
+    ],
+  },
+  {
+    category: 'For Website',
+    items: [
+      { name: 'Next.js', url: 'https://nextjs.org/', icon: Code, iconHoverColorClass: 'group-hover:text-black', textHoverColorClass: 'group-hover:text-black' },
+      { name: 'React.js', url: 'https://react.dev/', icon: Code, iconHoverColorClass: 'group-hover:text-sky-500', textHoverColorClass: 'group-hover:text-sky-700' },
+      { name: 'Lovable AI', url: 'https://lovable.dev/', icon: Bot, iconHoverColorClass: 'group-hover:text-pink-400', textHoverColorClass: 'group-hover:text-pink-600' },
+      { name: 'TypeScript', url: 'https://www.typescriptlang.org/', icon: Type, iconHoverColorClass: 'group-hover:text-blue-700', textHoverColorClass: 'group-hover:text-blue-900' },
+      { name: 'JavaScript (ES6+)', url: 'https://developer.mozilla.org/docs/Web/JavaScript', icon: Code, iconHoverColorClass: 'group-hover:text-yellow-400', textHoverColorClass: 'group-hover:text-yellow-700' },
+      { name: 'Tailwind CSS', url: 'https://tailwindcss.com/', icon: Wind, iconHoverColorClass: 'group-hover:text-sky-500', textHoverColorClass: 'group-hover:text-sky-700' },
+      { name: 'Ant Design', url: 'https://ant.design/', icon: Component, iconHoverColorClass: 'group-hover:text-blue-500', textHoverColorClass: 'group-hover:text-blue-700' },
+      { name: 'Node.js', url: 'https://nodejs.org/', icon: Code, iconHoverColorClass: 'group-hover:text-green-600', textHoverColorClass: 'group-hover:text-green-800' },
+      { name: 'Express.js', url: 'https://expressjs.com/', icon: Code, iconHoverColorClass: 'group-hover:text-gray-500', textHoverColorClass: 'group-hover:text-gray-700' },
+      { name: 'REST APIs', url: 'https://restfulapi.net/', icon: Settings, iconHoverColorClass: 'group-hover:text-orange-600', textHoverColorClass: 'group-hover:text-orange-800' },
+      { name: 'Zoho API Integration', url: 'https://www.zoho.com/apis/', icon: Settings, iconHoverColorClass: 'group-hover:text-red-600', textHoverColorClass: 'group-hover:text-red-800' },
+      { name: 'JSON / XML', url: 'https://www.json.org/', icon: Code, iconHoverColorClass: 'group-hover:text-gray-600', textHoverColorClass: 'group-hover:text-gray-800' },
+    ],
+  },
+  {
+    category: 'Database & Cloud',
+    items: [
+      { name: 'MySQL', url: 'https://www.mysql.com/', icon: Database, iconHoverColorClass: 'group-hover:text-blue-800', textHoverColorClass: 'group-hover:text-blue-900' },
+      { name: 'MongoDB', url: 'https://www.mongodb.com/', icon: DatabaseZap, iconHoverColorClass: 'group-hover:text-green-700', textHoverColorClass: 'group-hover:text-green-900' },
+      { name: 'Supabase', url: 'https://supabase.com/', icon: Cloud, iconHoverColorClass: 'group-hover:text-green-500', textHoverColorClass: 'group-hover:text-green-700' },
+      { name: 'Firebase', url: 'https://firebase.google.com/', icon: Cloud, iconHoverColorClass: 'group-hover:text-yellow-500', textHoverColorClass: 'group-hover:text-yellow-700' },
+      { name: 'PostgreSQL', url: 'https://www.postgresql.org/', icon: Database, iconHoverColorClass: 'group-hover:text-blue-600', textHoverColorClass: 'group-hover:text-blue-800' },
+      { name: 'Digital Ocean', url: 'https://www.digitalocean.com/', icon: Cloud, iconHoverColorClass: 'group-hover:text-blue-500', textHoverColorClass: 'group-hover:text-blue-700' },
+      { name: 'Vercel', url: 'https://vercel.com/', icon: Cloud, iconHoverColorClass: 'group-hover:text-black', textHoverColorClass: 'group-hover:text-black' },
+      { name: 'Netlify', url: 'https://www.netlify.com/', icon: Cloud, iconHoverColorClass: 'group-hover:text-teal-500', textHoverColorClass: 'group-hover:text-teal-700' },
+      { name: 'Zoho Catalyst', url: 'https://www.zoho.com/catalyst/', icon: Cloud, iconHoverColorClass: 'group-hover:text-purple-600', textHoverColorClass: 'group-hover:text-purple-800' },
+      { name: 'Docker (Basic)', url: 'https://www.docker.com/', icon: Box, iconHoverColorClass: 'group-hover:text-blue-400', textHoverColorClass: 'group-hover:text-blue-600' },
+    ],
+  },
+  {
+    category: 'Video & Tools',
+    items: [
+      { name: 'Canva Pro', url: 'https://www.canva.com/', icon: Palette, iconHoverColorClass: 'group-hover:text-purple-400', textHoverColorClass: 'group-hover:text-purple-600' },
+      { name: 'CapCut Pro', url: 'https://www.capcut.com/', icon: Palette, iconHoverColorClass: 'group-hover:text-blue-400', textHoverColorClass: 'group-hover:text-blue-600' },
+      { name: 'Adobe Pro', url: 'https://www.adobe.com/', icon: Palette, iconHoverColorClass: 'group-hover:text-red-600', textHoverColorClass: 'group-hover:text-red-800' },
+      { name: 'Figma', url: 'https://www.figma.com/', icon: FigmaIcon, iconHoverColorClass: 'group-hover:text-purple-500', textHoverColorClass: 'group-hover:text-purple-700' },
+      { name: 'Filmora', url: 'https://filmora.wondershare.com/', icon: Palette, iconHoverColorClass: 'group-hover:text-teal-500', textHoverColorClass: 'group-hover:text-teal-700' },
+      { name: 'Photoshop', url: 'https://www.adobe.com/products/photoshop.html', icon: Palette, iconHoverColorClass: 'group-hover:text-blue-900', textHoverColorClass: 'group-hover:text-blue-950' },
+      { name: 'Slack', url: 'https://slack.com/', icon: SlackIcon, iconHoverColorClass: 'group-hover:text-purple-700', textHoverColorClass: 'group-hover:text-purple-900' },
+      { name: 'Zoho Cliq', url: 'https://www.zoho.com/cliq/', icon: Settings, iconHoverColorClass: 'group-hover:text-green-500', textHoverColorClass: 'group-hover:text-green-700' },
+      { name: 'Google Workspace', url: 'https://workspace.google.com/', icon: Cloud, iconHoverColorClass: 'group-hover:text-blue-500', textHoverColorClass: 'group-hover:text-blue-700' },
+      { name: 'Zoho Projects', url: 'https://www.zoho.com/projects/', icon: Layers, iconHoverColorClass: 'group-hover:text-orange-500', textHoverColorClass: 'group-hover:text-orange-700' },
+      { name: 'VS Code', url: 'https://code.visualstudio.com/', icon: Monitor, iconHoverColorClass: 'group-hover:text-blue-600', textHoverColorClass: 'group-hover:text-blue-800' },
+      { name: 'Postman', url: 'https://www.postman.com/', icon: Settings, iconHoverColorClass: 'group-hover:text-orange-500', textHoverColorClass: 'group-hover:text-orange-700' },
+      { name: 'Eclipse', url: 'https://www.eclipse.org/ide/', icon: Code, iconHoverColorClass: 'group-hover:text-purple-800', textHoverColorClass: 'group-hover:text-purple-900' },
+    ],
+  },
 ];
 
-// --- Alag-alag rows ke liye data arrays ---
-const row1Items: TechItem[] = techStacksData.find(s => s.category === "For Zoho")?.items ?? [];
-const row2Items: TechItem[] = techStacksData.find(s => s.category === "For Website")?.items ?? [];
-const row3Items: TechItem[] = techStacksData.find(s => s.category === "Database & Cloud")?.items ?? [];
-const row4Items: TechItem[] = techStacksData.find(s => s.category === "Video & Tools")?.items ?? [];
+// --- Derived arrays for rows ---
+const row1Items: TechItem[] = techStacksData.find((s) => s.category === 'For Zoho')?.items ?? [];
+const row2Items: TechItem[] = techStacksData.find((s) => s.category === 'For Website')?.items ?? [];
+const row3Items: TechItem[] = techStacksData.find((s) => s.category === 'Database & Cloud')?.items ?? [];
+const row4Items: TechItem[] = techStacksData.find((s) => s.category === 'Video & Tools')?.items ?? [];
 
-// (Hinglish) Har box ko render karne ke liye ek helper component
-const TechBox = ({ item, id }: { item: TechItem; id: string }) => {
-    const IconComponent = item.icon ?? Box; // Default icon
-    return (
-        <div
-            key={id}
-            // --- UPDATE: Responsive Size ---
-            // Mobile (default): px-6 py-3, text-base, icon w-5 h-5, gap-2, mx-2
-            // Desktop (md+): px-8 py-4, text-lg, icon w-6 h-6, gap-3, mx-3
-            className={`flex items-center gap-2 md:gap-3 flex-shrink-0 mx-2 md:mx-3 px-6 md:px-8 py-3 md:py-4 bg-white rounded-lg shadow-md filter grayscale transition duration-300 hover:filter-none ${item.hoverClass ?? 'hover:bg-gray-200'} cursor-default`}
+// --- Helper: Single Tech Box (clickable) ---
+const TechBox = ({ item }: { item: TechItem }) => {
+  const IconComponent = item.icon ?? Box; // Fallback icon
+  const initialIconColor = 'text-gray-400 dark:text-gray-400';
+  const initialTextColor = 'text-gray-800 dark:text-gray-100';
+
+  return (
+    <a
+      href={item.url ?? '#'}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="focus:outline-none"
+      aria-label={item.url ? `${item.name} (opens in new tab)` : item.name}
+    >
+      <div
+        className="group cursor-pointer flex items-center gap-3 flex-shrink-0 min-w-[160px] xs:min-w-[180px] sm:min-w-[200px] md:min-w-[220px] lg:min-w-[240px] h-[76px] xs:h-[84px] md:h-[104px] lg:h-[112px] px-5 sm:px-6 py-4 rounded-2xl border border-gray-200/70 dark:border-neutral-800/70 bg-white/70 dark:bg-neutral-900/60 backdrop-blur supports-[backdrop-filter]:backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+      >
+        <IconComponent
+          aria-hidden
+          className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 flex-shrink-0 transition-colors duration-300 ${initialIconColor} ${item.iconHoverColorClass ?? 'group-hover:text-gray-900 dark:group-hover:text-white'}`}
+        />
+        <span
+          className={`text-[0.95rem] sm:text-base md:text-lg lg:text-xl font-semibold tracking-tight transition-colors duration-300 ${initialTextColor} ${item.textHoverColorClass ?? 'group-hover:text-gray-900 dark:group-hover:text-white'}`}
         >
-            <IconComponent className="w-5 h-5 md:w-6 md:h-6 flex-shrink-0" /> {/* Responsive icon size */}
-            <span className="text-base md:text-lg font-semibold">{item.name}</span> {/* Responsive text size */}
-        </div>
-    );
+          {item.name}
+        </span>
+      </div>
+    </a>
+  );
 };
 
+// --- Row wrapper (JSX ke bahar) ---
+function RowWrap({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="relative w-full overflow-hidden marquee-pauser mb-5">
+      {/* left fade */}
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-10 sm:w-20 bg-gradient-to-r from-gray-100 dark:from-neutral-950 to-transparent" />
+      {/* right fade */}
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-10 sm:w-20 bg-gradient-to-l from-gray-100 dark:from-neutral-950 to-transparent" />
+      {children}
+    </div>
+  );
+}
 
+// --- Main ---
 export default function TechStacks() {
-    return (
-        <section className="mt-16 md:mt-24 py-16 bg-gray-100 rounded-xl shadow-inner overflow-hidden">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Section Title */}
-                <div className="text-center mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Tech Stacks</h2>
-                </div>
+  return (
+    <section className="relative mt-16 md:mt-24 py-16 rounded-3xl overflow-hidden">
+      {/* Background gradient + subtle radial glow */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-neutral-900 dark:to-neutral-950" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(1000px_500px_at_50%_-10%,rgba(56,189,248,0.35),transparent_60%)] dark:bg-[radial-gradient(1000px_500px_at_50%_-10%,rgba(56,189,248,0.25),transparent_60%)]" />
 
-                {/* --- 4 Rows ka Structure --- */}
+      {/* Decorative top glow line */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-300/60 to-transparent dark:via-sky-500/40" />
 
-                {/* --- Marquee Row 1 (Left-to-Right) --- */}
-                <div className="relative w-full overflow-hidden group mb-4">
-                    <div className="flex whitespace-nowrap marquee-content-ltr">
-                        {row1Items.map((item, index) => <TechBox item={item} id={`${item.name}-1-${index}`} />)}
-                        {row1Items.map((item, index) => <TechBox item={item} id={`${item.name}-2-${index}`} />)}
-                    </div>
-                </div>
-                {/* --- Marquee Row 1 End --- */}
+      <div className="relative container mx-auto px-3 sm:px-4 md:px-6 lg:px-10">
+        {/* Title */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">Our Tech Stacks</h2>
+          <p className="mt-3 text-sm md:text-base lg:text-lg text-gray-600/90 dark:text-gray-300/80">
+            {/* Copy English rahega; comments Hinglish me */}
+            Tools we use across CRM, web, cloud, and creative workflows
+          </p>
+        </div>
 
-                {/* --- Marquee Row 2 (Right-to-Left) --- */}
-                <div className="relative w-full overflow-hidden group mb-4">
-                    <div className="flex whitespace-nowrap marquee-content-rtl">
-                        {row2Items.map((item, index) => <TechBox item={item} id={`${item.name}-1-${index}`} />)}
-                        {row2Items.map((item, index) => <TechBox item={item} id={`${item.name}-2-${index}`} />)}
-                    </div>
-                </div>
-                {/* --- Marquee Row 2 End --- */}
+        {/* Row 1 (LTR) */}
+        <RowWrap>
+          <div className="flex whitespace-nowrap marquee-content-ltr space-x-5 md:space-x-8 will-change-transform transform-gpu" style={{ ['--marquee-duration' as any]: '22s' }}>
+            {row1Items.concat(row1Items).map((item, i) => (
+              <TechBox key={`row1-${item.name}-${i}`} item={item} />
+            ))}
+          </div>
+        </RowWrap>
 
-                {/* --- Marquee Row 3 (Left-to-Right) --- */}
-                 <div className="relative w-full overflow-hidden group mb-4">
-                    <div className="flex whitespace-nowrap marquee-content-ltr-alt">
-                        {row3Items.map((item, index) => <TechBox item={item} id={`${item.name}-1-${index}`} />)}
-                        {row3Items.map((item, index) => <TechBox item={item} id={`${item.name}-2-${index}`} />)}
-                    </div>
-                </div>
-                {/* --- Marquee Row 3 End --- */}
+        {/* Row 2 (RTL) */}
+        <RowWrap>
+          <div className="flex whitespace-nowrap marquee-content-rtl space-x-5 md:space-x-8 will-change-transform transform-gpu" style={{ ['--marquee-duration' as any]: '26s' }}>
+            {row2Items.concat(row2Items).map((item, i) => (
+              <TechBox key={`row2-${item.name}-${i}`} item={item} />
+            ))}
+          </div>
+        </RowWrap>
 
-                {/* --- Marquee Row 4 (Right-to-Left) --- */}
-                <div className="relative w-full overflow-hidden group">
-                    <div className="flex whitespace-nowrap marquee-content-rtl-alt">
-                        {row4Items.map((item, index) => <TechBox item={item} id={`${item.name}-1-${index}`} />)}
-                        {row4Items.map((item, index) => <TechBox item={item} id={`${item.name}-2-${index}`} />)}
-                    </div>
-                </div>
-                {/* --- Marquee Row 4 End --- */}
+        {/* Row 3 (LTR slower) */}
+        <RowWrap>
+          <div className="flex whitespace-nowrap marquee-content-ltr space-x-5 md:space-x-8 will-change-transform transform-gpu" style={{ ['--marquee-duration' as any]: '32s' }}>
+            {row3Items.concat(row3Items).map((item, i) => (
+              <TechBox key={`row3-${item.name}-${i}`} item={item} />
+            ))}
+          </div>
+        </RowWrap>
 
-            </div>
+        {/* Row 4 (RTL slowest) */}
+        <RowWrap>
+          <div className="flex whitespace-nowrap marquee-content-rtl space-x-5 md:space-x-8 will-change-transform transform-gpu" style={{ ['--marquee-duration' as any]: '38s' }}>
+            {row4Items.concat(row4Items).map((item, i) => (
+              <TechBox key={`row4-${item.name}-${i}`} item={item} />
+            ))}
+          </div>
+        </RowWrap>
+      </div>
 
-            {/* --- Internal CSS (4 animations waala) --- */}
-            <style jsx global>{`
-                @keyframes marquee-ltr {
-                  0% { transform: translateX(-50%); } 100% { transform: translateX(0%); }
-                }
-                @keyframes marquee-rtl {
-                  0% { transform: translateX(0%); } 100% { transform: translateX(-50%); }
-                }
-                .marquee-content-ltr { animation: marquee-ltr 40s linear infinite; }
-                .marquee-content-rtl { animation: marquee-rtl 45s linear infinite; }
-                .marquee-content-ltr-alt { animation: marquee-ltr 50s linear infinite; }
-                .marquee-content-rtl-alt { animation: marquee-rtl 55s linear infinite; }
-                .group:hover .marquee-content-ltr,
-                .group:hover .marquee-content-rtl,
-                .group:hover .marquee-content-ltr-alt,
-                .group:hover .marquee-content-rtl-alt {
-                  animation-play-state: paused;
-                }
-            `}</style>
-            {/* --- Internal CSS End --- */}
-        </section>
-    );
+      {/* Global CSS for animation + accessibility */}
+      <style jsx global>{`
+        /* --- Motion keyframes (translate3d for GPU) --- */
+        @keyframes marquee-ltr { 0% { transform: translate3d(-50%,0,0); } 100% { transform: translate3d(0%,0,0); } }
+        @keyframes marquee-rtl { 0% { transform: translate3d(0%,0,0); } 100% { transform: translate3d(-50%,0,0); } }
+
+        .marquee-content-ltr {
+          animation: marquee-ltr var(--marquee-duration, 25s) linear infinite;
+        }
+        .marquee-content-rtl {
+          animation: marquee-rtl var(--marquee-duration, 30s) linear infinite;
+        }
+
+        /* Hover par pause */
+        .marquee-pauser:hover .marquee-content-ltr,
+        .marquee-pauser:hover .marquee-content-rtl {
+          animation-play-state: paused;
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-content-ltr,
+          .marquee-content-rtl {
+            animation: none !important;
+            transform: translate3d(0,0,0) !important;
+          }
+        }
+      `}</style>
+    </section>
+  );
 }
