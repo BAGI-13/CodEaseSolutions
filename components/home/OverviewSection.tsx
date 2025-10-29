@@ -46,7 +46,7 @@ export default function OverviewSection() {
              
              {/* --- UPDATE: 'fill' hata kar 'width'/'height' aur 'className' add kiya --- */}
              <Image
-                src="/codEase.png" // Aapka logo path
+                src="/CodEase.png" // Aapka logo path
                 alt="CodeaseSolutions Logo"
                 // (Hinglish) Apne logo ka original aspect ratio (width/height) yahan daalein
                 // Example ke liye main 800x400 (2:1 ratio) use kar raha hoon
